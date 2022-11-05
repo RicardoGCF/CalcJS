@@ -2,6 +2,8 @@ const previousOperationText = document.querySelector("#previous-operation");
 const currentOperationText = document.querySelector("#current-operation");
 const buttons = document.querySelectorAll("#buttons-container button");
 
+
+
 class Calculator{
     constructor(previousOperationText, currentOperationText) {
         this.previousOperationText = previousOperationText;
@@ -125,6 +127,7 @@ class Calculator{
        
     }
 
+
 }
 
 const calc = new Calculator(previousOperationText, currentOperationText);
@@ -141,3 +144,37 @@ buttons.forEach((btn) => {
     }
     });
 });     
+   
+window.addEventListener("keydown", (e) => {
+    const value = e.key;
+
+    if(+value >= 0 || value === ".") {
+        calc.addDigit(value);
+    }else {
+        calc.processOperation(value);
+    }
+
+    if(value == "Enter") {
+        calc.processOperation("=");
+        calc.processEqualsOperation();
+    }
+    
+    if(value == "Backspace") {
+        calc.processOperation("DEL");
+        calc.processEqualsOperation();
+    }
+
+    if(value == "Escape") {
+        calc.processOperation("C");
+        calc.processEqualsOperation();
+    }
+
+    if(value == "'") {
+        calc.processOperation("CE");
+        calc.processEqualsOperation();
+    }
+
+
+
+
+})
